@@ -38,14 +38,27 @@
                 <div class="cover-body">
                     <header class="header">
                         <hgroup>
-                            {% if PROFILE_IMG_URL %}
-                            <img class="avatar" src="{{ PROFILE_IMG_URL }}">
+                            {% if PROFILE_IMAGE_URL %}
+                            <a href="/"><img class="avatar" src="{{ PROFILE_IMAGE_URL }}"></a>
                             {% endif %}
                             <h1 class="brand-main"><a href="/">{{ SITENAME }}</a></h1>
                             <p class="tagline">{{ TAGLINE }}</p>
                             {% for title, link in MENUITEMS %}
                                 <p class="links"><a href="{{ SITEURL }}/{{ link }}">{{ title }}</a></p>
                             {% endfor %}
+
+                            {% if DISPLAY_PAGES_ON_MENU -%}
+                            {% for pg in PAGES %}
+                                <p {% if pg == page %} style="font-weight: bold;"{% endif %} class="links"><a href="{{ SITEURL }}/{{ pg.url }}">{{ pg.title }}</a></p>
+                            {% endfor %}
+                            {% endif %}
+
+                            {% if DISPLAY_CATEGORIES_ON_MENU -%}
+                            {% for cat, null in categories %}
+                                <p {% if cat == category %} style="font-weight: bold;"{% endif %} class="links"><a href="{{ SITEURL }}/{{ cat.url }}">{{ cat }}</a></p>
+                            {% endfor %}
+                            {% endif %}
+
                                 <p class="social">
                             {% for title, link in SOCIAL %}
                                     <a href="{{ link }}">
